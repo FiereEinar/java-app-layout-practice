@@ -1,10 +1,12 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,11 +18,12 @@ import ui.SidebarButton;
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	public String font = "Calibri";
+	public static String font = "Calibri";
 	
 	public JLabel title = new JLabel();
 	private WindowController controller = new WindowController(this);
-	public JPanel mainContent = new JPanel();
+	public JPanel mainContent = new JPanel();		
+	public JPanel content = new JPanel();
 	
 	public Window() {
 		this.setVisible(true);
@@ -28,8 +31,6 @@ public class Window extends JFrame {
 		this.setSize(1200, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-//		mainContent = new JPanel();
-
 		header();
 		sidebar();
 		mainContent();
@@ -50,10 +51,12 @@ public class Window extends JFrame {
 	}
 	
 	private void sidebar() {
+		// sidebar container
 		JPanel panel = new JPanel();
 		panel.setBackground(CustomColor.dark_100);
 		
 		{
+			// sidebar buttons container
 			JPanel actionsContainer = new JPanel();
 			actionsContainer.setBackground(CustomColor.dark_100);
 			actionsContainer.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -83,21 +86,33 @@ public class Window extends JFrame {
 	}
 	
 	private void mainContent() {
+		// center content container
 		JPanel panel = new JPanel();
 		panel.setBackground(CustomColor.dark_200);
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		{
+			// container for the content
+			JPanel content = new JPanel();
+			content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+			content.setAlignmentX(Component.RIGHT_ALIGNMENT);
+			content.setBackground(CustomColor.dark_200);
+			content.setBorder(new EmptyBorder(10, 10, 10, 10));
+			
+			// title for the content
+			title.setFont(new Font(font, Font.PLAIN, CustomFontSize.large));
+			title.setAlignmentX(Component.RIGHT_ALIGNMENT);
+			title.setForeground(CustomColor.white);
+
+			// datas inside a content container
 			mainContent.setBackground(CustomColor.dark_200);
 			mainContent.setBorder(new EmptyBorder(10, 10, 10, 10));
-//			mainContent.setLayout(new FlowLayout(FlowLayout.LEFT));
-			mainContent.setLayout(new GridLayout(2, 1));
+			mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
 			
-			title.setFont(new Font(font, Font.PLAIN, CustomFontSize.large));
-			title.setForeground(CustomColor.white);
-			mainContent.add(title);
+			content.add(title);
+			content.add(mainContent);
 			
-			panel.add(mainContent);
+			panel.add(content);
 		}
 		
 		this.add(panel, BorderLayout.CENTER);

@@ -1,62 +1,59 @@
 package controllers;
 
-import java.awt.FlowLayout;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import main.CustomColor;
-import main.CustomFontSize;
 import main.Window;
 import model.TaskManager;
+import views.AddTaskView;
+import views.AllTasksView;
+import views.FinishedTasksView;
+import views.UpcomingTasksVIew;
 
 public class WindowController {
 	
 	Window window;
 	TaskManager taskManager = new TaskManager();
-	private JLabel messageLabel = new JLabel();
-	private JPanel content = new JPanel();
+	
+	// views
+	AllTasksView allTasksView;
+	AddTaskView addTaskView;
+	UpcomingTasksVIew upcomingTasksVIew;
+	FinishedTasksView finishedTasksView;
 
 	public WindowController(Window window) {
 		this.window = window;
 		
-		content.add(messageLabel);
+		// initialize views
+		allTasksView = new AllTasksView(this.taskManager);
+		addTaskView = new AddTaskView(this.taskManager);
+		upcomingTasksVIew = new UpcomingTasksVIew(this.taskManager);
+		finishedTasksView = new FinishedTasksView(this.taskManager);
 	}
 	
 	public void handleAllTasks() {
-		System.out.println("All Tasks");
+		window.mainContent.removeAll();
 		window.title.setText("All Tasks");
 		
-		JPanel tasksContainer = new JPanel();
-		tasksContainer.setBackground(CustomColor.dark_200);
-		tasksContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
-
-		if (taskManager.tasks.size() == 0) {
-			JLabel label = new JLabel("No tasks yet");
-			label.setFont(new Font(window.font, Font.ITALIC, CustomFontSize.small));
-			label.setForeground(CustomColor.dark_500);
-			tasksContainer.add(label);
-		} else {
-			// render tasks
-		}
-		
-		window.mainContent.add(tasksContainer);
+		window.mainContent.add(allTasksView);
 	}
 	
 	public void handleAddTask() {
-		System.out.println("Add Task");
+		window.mainContent.removeAll();
 		window.title.setText("Add Task");
+		
+		window.mainContent.add(addTaskView);
 	}
 	
 	public void handleUpcomingTasks() {
-		System.out.println("Upcoming Tasks");
-		window.title.setText("Upcoming Tasks");
+		window.mainContent.removeAll();
+		window.title.setText("Upcoming Task");
+
+		window.mainContent.add(upcomingTasksVIew);
 	}
 	
 	public void handleFinishedTask() {
-		System.out.println("Finished Tasks");
-		window.title.setText("Finished Tasks");
+		window.mainContent.removeAll();
+		window.title.setText("Finished Task");
+
+		window.mainContent.add(finishedTasksView);
 	}
 
 }
