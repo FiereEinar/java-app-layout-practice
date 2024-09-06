@@ -100,16 +100,20 @@ public class Window extends JFrame {
 			content.setBorder(new EmptyBorder(10, 10, 10, 10));
 			
 			// title for the content
+			JPanel titleContainer = new JPanel();
+			titleContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+			titleContainer.setBackground(CustomColor.dark_200);
 			title.setFont(new Font(font, Font.PLAIN, CustomFontSize.large));
 			title.setAlignmentX(Component.RIGHT_ALIGNMENT);
 			title.setForeground(CustomColor.white);
+			titleContainer.add(title);
 
 			// datas inside a content container
 			mainContent.setBackground(CustomColor.dark_200);
 			mainContent.setBorder(new EmptyBorder(10, 10, 10, 10));
 			mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.Y_AXIS));
-			
-			content.add(title);
+
+			content.add(titleContainer);
 			content.add(mainContent);
 			
 			panel.add(content);

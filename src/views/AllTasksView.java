@@ -22,6 +22,7 @@ public class AllTasksView extends MainLayout {
 			JLabel label = new JLabel("No tasks yet");
 			label.setFont(new Font(Window.font, Font.ITALIC, CustomFontSize.small));
 			label.setForeground(CustomColor.dark_500);
+			label.setAlignmentX(JLabel.LEFT);
 			
 			this.add(label);
 		} else {

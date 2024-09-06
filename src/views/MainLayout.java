@@ -1,7 +1,6 @@
 package views;
 
-import java.awt.FlowLayout;
-
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import main.CustomColor;
@@ -18,9 +17,9 @@ public class MainLayout extends JPanel implements MainLayoutInterface {
 
 	public MainLayout(TaskManager taskManager) {
 		this.taskManager  = taskManager;
-		this.setBackground(CustomColor.dark_200);
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
+		this.setBackground(CustomColor.dark_200);
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		render();
 	}
 

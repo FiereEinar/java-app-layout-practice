@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Container;
 import java.awt.Font;
 
 import javax.swing.JLabel;
@@ -23,6 +24,7 @@ public class UpcomingTasksVIew extends MainLayout {
 		JLabel label = new JLabel("Upcoming tasks goes here");
 		label.setFont(new Font(Window.font, Font.ITALIC, CustomFontSize.small));
 		label.setForeground(CustomColor.dark_500);
+		label.setAlignmentX(Container.RIGHT_ALIGNMENT);
 		
 		this.add(label);
 	}
