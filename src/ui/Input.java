@@ -12,6 +12,8 @@ import main.Window;
 public class Input extends JTextField {
 
 	private static final long serialVersionUID = 1L;
+	public static final int width = 250;
+	public static final int height = 30;
 
 	public Input(String text) {
 		super(text);
@@ -23,7 +25,7 @@ public class Input extends JTextField {
 	}
 	
 	private void setStyles() {
-		this.setPreferredSize(new Dimension(200, 30));
+		this.setPreferredSize(new Dimension(width, Input.height));
 		this.setBackground(CustomColor.dark_200);
 		this.setForeground(CustomColor.dark_500);
 		this.setFont(new Font(Window.font, Font.PLAIN, CustomFontSize.small));

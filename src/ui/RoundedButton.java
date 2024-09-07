@@ -21,6 +21,8 @@ public class RoundedButton extends JButton {
 	
 	private Color originalBackground;
     private Color hoverBackground;
+    private Color textColor;
+    private Color textHoverColor;
 
 	public RoundedButton(String label) {
         super(label);
@@ -30,12 +32,15 @@ public class RoundedButton extends JButton {
         
         originalBackground = CustomColor.dark_300;
         hoverBackground = CustomColor.dark_400;
+        textColor = CustomColor.dark_500;
+        textHoverColor = CustomColor.dark_500;
         
         addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseEntered(MouseEvent e) {
         		super.mouseEntered(e);
         		setBackground(hoverBackground);
+        		setForeground(textHoverColor);
         		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         	}
         	
@@ -43,6 +48,7 @@ public class RoundedButton extends JButton {
         	public void mouseExited(MouseEvent e) {
         		super.mouseExited(e);
         		setBackground(originalBackground);
+        		setForeground(textColor);
         		setCursor(Cursor.getDefaultCursor());
         	}
 		});
@@ -56,6 +62,15 @@ public class RoundedButton extends JButton {
         this.originalBackground = originalColor;
         this.setBackground(originalColor);
     }
+	
+	public void setForegroundHover(Color textColor) {
+		this.textHoverColor = textColor;
+	}
+	
+	public void setForegroundDefault(Color textColor) {
+		this.textColor = textColor;
+		this.setForeground(textColor);
+	}	
 	
     @Override
     protected void paintComponent(Graphics g) {
