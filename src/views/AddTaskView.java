@@ -1,23 +1,18 @@
 package views;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
+import java.util.Calendar;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import controllers.AddTaskController;
 import main.CustomColor;
-import main.CustomFontSize;
-import main.Window;
 import model.TaskManager;
 import ui.Input;
 import ui.InputField;
@@ -31,48 +26,46 @@ public class AddTaskView extends MainLayout {
 	
 	JPanel formContainer;
 	
-	InputField titleField;
-	InputField descriptionField;
+	public InputField titleField;
+	public InputField descriptionField;
 	
 	JPanel dateContainer;
 	
-	InputField yearField;
-	InputField monthField;
-	InputField dayField;
+	public InputField yearField;
+	public InputField monthField;
+	public InputField dayField;
 	
 	JPanel timeContainer;
 	
-	InputField hourField;
-	InputField minuteField;
+	public InputField hourField;
+	public InputField minuteField;
 	
 	JPanel actionsContainer;
 	
 	RoundedButton submitButton;
 	
+	AddTaskController controller;
+	
 	public AddTaskView(TaskManager tm) {
 		super(tm);
-
+		this.controller = new AddTaskController(this, tm);
 	}
 	
 	public void render() {
+		this.removeAll();
+		
+		// testing only
+//		taskManager.addTask("Test", "Test description", 2024, 7, 10, 8, 30);
+		
 		formContainer = new JPanel();
 		formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));
 		formContainer.setBackground(CustomColor.dark_200);
 		
+		titleField = new InputField("Title: ");
+		descriptionField = new InputField("Description: ");
+		
 		// TODO: refactor this extra container
 		// putting the title and description inside a container so that is has the same alignment as the rest
-		JPanel c1 = new JPanel();
-		c1.setBackground(CustomColor.dark_200);
-		c1.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JPanel c2 = new JPanel();
-		c2.setBackground(CustomColor.dark_200);
-		c2.setLayout(new FlowLayout(FlowLayout.LEFT));
-		
-		titleField = new InputField("Title: ");
-		c1.add(titleField);
-		descriptionField = new InputField("Description: ");
-		c2.add(descriptionField);
-		
 		JPanel c3 = new JPanel();
 		c3.setBackground(CustomColor.dark_200);
 		c3.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -83,11 +76,12 @@ public class AddTaskView extends MainLayout {
 		setupDateInputField();
 		setupTimeInputField();
 		setupFormActions();
+		setDefaultValues();
 		
 		// add the fields to the form container
-		formContainer.add(c1);
+		formContainer.add(titleField);
 		formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
-		formContainer.add(c2);
+		formContainer.add(descriptionField);
 		formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
 		formContainer.add(c3);
 		formContainer.add(dateContainer);
@@ -108,7 +102,8 @@ public class AddTaskView extends MainLayout {
 
 		// set container styles
 		dateContainer.setBackground(CustomColor.dark_200);
-		dateContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+//		dateContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		dateContainer.setLayout(new GridLayout(1, 3, 10, 0));
 
 		// set input fields size
 		yearField.input.setPreferredSize(new Dimension(dateInputWidth, Input.height));
@@ -125,10 +120,11 @@ public class AddTaskView extends MainLayout {
 		timeContainer = new JPanel();
 		hourField = new InputField("Hour (1-24): ");
 		minuteField = new InputField("Minute (1-59): ");
+		JLabel placeholder = new JLabel();
 
 		// set container styles
 		timeContainer.setBackground(CustomColor.dark_200);
-		timeContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		timeContainer.setLayout(new GridLayout(1, 3, 10, 0));
 		
 		// set input fields size
 		hourField.input.setPreferredSize(new Dimension(dateInputWidth, Input.height));
@@ -137,6 +133,7 @@ public class AddTaskView extends MainLayout {
 		// add input fields to the container
 		timeContainer.add(hourField);
 		timeContainer.add(minuteField);
+		timeContainer.add(placeholder);
 	}
 	
 	private void setupFormActions() {
@@ -150,8 +147,45 @@ public class AddTaskView extends MainLayout {
 		submitButton.setForegroundDefault(CustomColor.dark_200);
 		submitButton.setForegroundHover(CustomColor.white);
 		submitButton.setBorder(new EmptyBorder(10, 25, 10, 25));
+		submitButton.addActionListener(e -> controller.handleAddTask());
 		
 		actionsContainer.add(submitButton);
+	}
+	
+	private void setDefaultValues() {
+		Calendar date = Calendar.getInstance();
+		
+		yearField.input.setText(String.valueOf(date.get(Calendar.YEAR)));
+		monthField.input.setText(String.valueOf(date.get(Calendar.MONTH) + 1));
+		dayField.input.setText(String.valueOf(date.get(Calendar.DAY_OF_MONTH)));
+	}
+	
+	public String getTitle() {
+		return this.titleField.input.getText();
+	}
+	
+	public String getDescription() {
+		return this.descriptionField.input.getText();
+	}
+	
+	public int getYear() {
+		return Integer.parseInt(this.yearField.input.getText());
+	}
+	
+	public int getMonth() {
+		return Integer.parseInt(this.monthField.input.getText());
+	}
+	
+	public int getDayOfMonth() {
+		return Integer.parseInt(this.dayField.input.getText());
+	}
+	
+	public int getHour() {
+		return Integer.parseInt(this.hourField.input.getText());
+	}
+	
+	public int getMinutes() {
+		return Integer.parseInt(this.minuteField.input.getText());
 	}
 
 }

@@ -21,6 +21,8 @@ public class UpcomingTasksVIew extends MainLayout {
 	}
 	
 	public void render() {
+		this.removeAll();
+		
 		JLabel label = new JLabel("Upcoming tasks goes here");
 		label.setFont(new Font(Window.font, Font.ITALIC, CustomFontSize.small));
 		label.setForeground(CustomColor.dark_500);

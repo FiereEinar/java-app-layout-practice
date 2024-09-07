@@ -1,15 +1,15 @@
 package model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Task {
 	
 	public String title;
 	public String description;
 	public Boolean finished;
-	public Date deadline;
+	public Calendar deadline;
 	
-	public Task(String title, String description, Boolean finished, Date deadline) {
+	public Task(String title, String description, Boolean finished, Calendar deadline) {
 		this.title = title;
 		this.description = description;
 		this.finished = finished;

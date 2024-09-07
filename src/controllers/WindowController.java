@@ -32,6 +32,7 @@ public class WindowController {
 		window.mainContent.removeAll();
 		window.title.setText("All Tasks");
 		
+		allTasksView.render();
 		window.mainContent.add(allTasksView);
 	}
 	
@@ -39,6 +40,7 @@ public class WindowController {
 		window.mainContent.removeAll();
 		window.title.setText("Add Task");
 		
+		addTaskView.render();
 		window.mainContent.add(addTaskView);
 	}
 	
@@ -46,6 +48,7 @@ public class WindowController {
 		window.mainContent.removeAll();
 		window.title.setText("Upcoming Task");
 
+		upcomingTasksVIew.render();
 		window.mainContent.add(upcomingTasksVIew);
 	}
 	
@@ -53,6 +56,7 @@ public class WindowController {
 		window.mainContent.removeAll();
 		window.title.setText("Finished Task");
 
+		finishedTasksView.render();
 		window.mainContent.add(finishedTasksView);
 	}
 
