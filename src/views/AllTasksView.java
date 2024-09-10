@@ -24,8 +24,6 @@ public class AllTasksView extends MainLayout {
 	public void render() {
 		this.removeAll();
 		
-		System.out.println(taskManager.tasks.size());
-		
 		if (taskManager.tasks.size() == 0) {
 			JLabel label = new JLabel("No tasks yet");
 			label.setFont(new Font(Window.font, Font.ITALIC, CustomFontSize.small));

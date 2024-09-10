@@ -27,20 +27,18 @@ public class AddTaskController {
 		int minutes = screen.getMinutes();
 		
 		taskManager.addTask(title, description, year, month, day, hour, minutes);
-		
-		System.out.println(screen.titleField.input.getText());
 	}
 	
 	private Boolean validateValues() {
-		if (screen.getTitle().length() == 0) 		return false;
-		if (screen.getDescription().length() == 0) 	return false;
+		if (screen.getTitle().length() == 0) return false;
+		if (screen.getDescription().length() == 0) return false;
 		
-		if (screen.getYear() > 9999) 				return false;
-		if (screen.getMonth() > 12) 				return false;
-		if (screen.getDayOfMonth() > 31) 			return false;
+		if (screen.getYear() > 9999) return false;
+		if (screen.getMonth() > 12) return false;
+		if (screen.getDayOfMonth() > 31) return false;
 		
-		if (screen.getHour() > 24) 					return false;
-		if (screen.getMinutes() > 59) 				return false;
+		if (screen.getHour() > 24) return false;
+		if (screen.getMinutes() > 59) return false;
 		
 		return true;
 	}

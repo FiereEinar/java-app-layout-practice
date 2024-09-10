@@ -129,5 +129,4 @@ public class Window extends JFrame {
 		this.add(panel, BorderLayout.CENTER);
 	}
 	
-
 }

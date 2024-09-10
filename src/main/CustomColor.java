@@ -11,6 +11,7 @@ public class CustomColor extends Color {
 	public static Color dark_300 = new Color(0x3e4042);
 	public static Color dark_400 = new Color(0x65676b);
 	public static Color dark_500 = new Color(0xbcc0c4);
+	public static Color danger = new Color(0xb00020);
 	
 	public CustomColor(int rgb) {
 		super(rgb);
