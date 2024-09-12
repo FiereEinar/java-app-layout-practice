@@ -55,7 +55,7 @@ public class AddTaskView extends MainLayout {
 		this.removeAll();
 		
 		// testing only
-		taskManager.addTask("Test", "Test description", 2024, 7, 10, 8, 30);
+		// taskManager.addTask("Test", "Test description", 2024, 7, 10, 8, 30);
 		
 		formContainer = new JPanel();
 		formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));

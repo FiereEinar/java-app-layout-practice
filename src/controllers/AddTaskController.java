@@ -1,5 +1,7 @@
 package controllers;
 
+import database.TaskDAO;
+import model.Task;
 import model.TaskManager;
 import views.AddTaskView;
 
@@ -7,10 +9,12 @@ public class AddTaskController {
 	
 	TaskManager taskManager;
 	AddTaskView screen;
+	TaskDAO taskDAO;
 
 	public AddTaskController(AddTaskView screen, TaskManager tm) {
 		this.taskManager = tm;
 		this.screen = screen;
+		this.taskDAO = new TaskDAO(taskManager);
 	}
 
 	public void handleAddTask() {
@@ -26,7 +30,9 @@ public class AddTaskController {
 		int hour = screen.getHour();
 		int minutes = screen.getMinutes();
 		
-		taskManager.addTask(title, description, year, month, day, hour, minutes);
+		Task task = taskManager.addTask(title, description, year, month, day, hour, minutes);
+		// save to file
+		taskDAO.saveTask(task);
 	}
 	
 	private Boolean validateValues() {

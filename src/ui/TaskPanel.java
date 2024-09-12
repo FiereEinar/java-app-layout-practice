@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.util.Date;
 
 import javax.swing.JCheckBox;
