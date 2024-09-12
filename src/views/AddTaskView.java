@@ -54,9 +54,6 @@ public class AddTaskView extends MainLayout {
 	public void render() {
 		this.removeAll();
 		
-		// testing only
-		// taskManager.addTask("Test", "Test description", 2024, 7, 10, 8, 30);
-		
 		formContainer = new JPanel();
 		formContainer.setLayout(new BoxLayout(formContainer, BoxLayout.Y_AXIS));
 		formContainer.setBackground(CustomColor.dark_200);
@@ -72,7 +69,7 @@ public class AddTaskView extends MainLayout {
 		
 		NormalMutedText deadlineLabel = new NormalMutedText("Deadline for this task: ");
 		c.add(deadlineLabel);
-//		deadlineLabel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
 		setupDateInputField();
 		setupTimeInputField();
 		setupFormActions();
@@ -102,7 +99,7 @@ public class AddTaskView extends MainLayout {
 
 		// set container styles
 		dateContainer.setBackground(CustomColor.dark_200);
-//		dateContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
+		// dateContainer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		dateContainer.setLayout(new GridLayout(1, 3, 10, 0));
 
 		// set input fields size

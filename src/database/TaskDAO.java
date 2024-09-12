@@ -25,14 +25,12 @@ public class TaskDAO {
   public Boolean saveTask(Task task) {
 
     try {
-      FileWriter fw = new FileWriter(tasksFilename);
+      FileWriter fw = new FileWriter(tasksFilename, true);
 
       DateValues date = new DateValues(task.deadline);
       String formattedTaskString = String.format(
-          "%s,%s,%d,%d,%d,%d,%d,%s",
+          "%s,%s,%d,%d,%d,%d,%d,%s\n",
           task.title, task.description, date.month, date.day, date.hour, date.minute, date.second, task.finished);
-
-      System.out.println(formattedTaskString);
 
       fw.append(formattedTaskString);
 

@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.Calendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -35,12 +34,6 @@ public class Window extends JFrame {
 		header();
 		sidebar();
 		mainContent();
-		
-//		Date date = new Date();
-		Calendar cal = Calendar.getInstance();
-		System.out.println(cal.getTime());
-		cal.set(Calendar.DAY_OF_MONTH, 10);
-		System.out.println(cal.getTime());
 	}
 	
 	private void header() {
