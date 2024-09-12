@@ -25,8 +25,6 @@ public class MainLayout extends JPanel implements MainLayoutInterface {
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

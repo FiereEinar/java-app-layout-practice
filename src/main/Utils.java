@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 public class Utils {
 
 	public Utils() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static ImageIcon getImageIcon(String path, int width, int height) {
