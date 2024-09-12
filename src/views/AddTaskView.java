@@ -66,12 +66,12 @@ public class AddTaskView extends MainLayout {
 		
 		// TODO: refactor this extra container
 		// putting the title and description inside a container so that is has the same alignment as the rest
-		JPanel c3 = new JPanel();
-		c3.setBackground(CustomColor.dark_200);
-		c3.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JPanel c = new JPanel();
+		c.setBackground(CustomColor.dark_200);
+		c.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		NormalMutedText deadlineLabel = new NormalMutedText("Deadline for this task: ");
-		c3.add(deadlineLabel);
+		c.add(deadlineLabel);
 //		deadlineLabel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		setupDateInputField();
 		setupTimeInputField();
@@ -83,7 +83,7 @@ public class AddTaskView extends MainLayout {
 		formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
 		formContainer.add(descriptionField);
 		formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
-		formContainer.add(c3);
+		formContainer.add(c);
 		formContainer.add(dateContainer);
 		formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
 		formContainer.add(timeContainer);
@@ -186,6 +186,13 @@ public class AddTaskView extends MainLayout {
 	
 	public int getMinutes() {
 		return Integer.parseInt(this.minuteField.input.getText());
+	}
+
+	public void resetValues() {
+		this.titleField.input.setText("");
+		this.descriptionField.input.setText("");
+		this.hourField.input.setText("");
+		this.minuteField.input.setText("");
 	}
 
 }

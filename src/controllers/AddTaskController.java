@@ -33,6 +33,8 @@ public class AddTaskController {
 		Task task = taskManager.addTask(title, description, year, month, day, hour, minutes);
 		// save to file
 		taskDAO.saveTask(task);
+
+		screen.resetValues();
 	}
 	
 	private Boolean validateValues() {
