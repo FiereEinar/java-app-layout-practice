@@ -33,7 +33,8 @@ public class AllTasksView extends MainLayout {
 			this.add(label);
 		} else {
 			// render tasks
-			for (Task task: taskManager.tasks) {
+			for (Task task : taskManager.tasks) {
+				System.out.println(task.title);
 				this.add(new TaskPanel(task.finished, task.title, task.description, task.deadline.getTime()));
 				this.add(Box.createRigidArea(new Dimension(0, 10)));
 			}
