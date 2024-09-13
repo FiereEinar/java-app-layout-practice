@@ -14,7 +14,8 @@ import model.TaskManager;
 public class TaskDAO {
 
   TaskManager tasks;
-  String tasksFilename = "test.txt";
+  String directory = "storage";
+  String tasksFilename = directory + "/test.csv";
   
   public TaskDAO(TaskManager tm) {
     this.tasks = tm;
@@ -28,9 +29,18 @@ public class TaskDAO {
       FileWriter fw = new FileWriter(tasksFilename, true);
 
       DateValues date = new DateValues(task.deadline);
+
       String formattedTaskString = String.format(
-          "%s,%s,%d,%d,%d,%d,%d,%s\n",
-          task.title, task.description, date.month, date.day, date.hour, date.minute, date.second, task.finished);
+        "%s,%s,%d,%d,%d,%d,%d,%s\n",
+        task.title.replace(",", ""),
+        task.description.replace(",", ""),
+        date.year,
+        date.month,
+        date.day,
+        date.hour,
+        date.minute,
+        task.finished
+      );
 
       fw.append(formattedTaskString);
 
@@ -80,6 +90,7 @@ public class TaskDAO {
   private Boolean createFiles() {
     try {
 
+      new File(directory).mkdir();
       File file = new File(tasksFilename);
       return file.createNewFile();
 
