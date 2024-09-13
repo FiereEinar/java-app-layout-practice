@@ -3,12 +3,15 @@ package ui;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 
 import main.CustomColor;
+import model.TaskManager;
 
 public class TaskPanel extends RoundedButton {
 	
@@ -21,14 +24,35 @@ public class TaskPanel extends RoundedButton {
 	NormalMutedText description;
 	NormalMutedText deadline;
 	RoundedButton deleteButton;
+	TaskManager taskManager;
+	int id;
 	
-	public TaskPanel(Boolean isDone, String title, String description, Date deadline) {
+	public TaskPanel(TaskManager tm, Boolean isDone, String title, String description, Date deadline, int id) {
 		super("");
+		this.taskManager = tm;
+		this.id = id;
 		
 		int componentAmount = 4;
 		this.checkbox = new JCheckBox();
 		this.checkbox.setBackground(CustomColor.dark_200);
 		this.checkbox.setSelected(isDone);
+		this.checkbox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("changed state");
+				System.out.println(checkbox.isSelected());
+				taskManager.tasks.forEach(t -> {
+					if (id == t.id) {
+						t.finished = checkbox.isSelected();
+					}
+				});
+			}
+		});
+		// this.checkbox.addChangeListener(new ChangeListener() {
+		// 	public void stateChanged(ChangeEvent e) {
+		// 		System.out.println("changed state");
+		// 	}
+		// });
 
 		this.title = new NormalMutedText(title);
 		this.title.setPreferredSize(new Dimension(labelWidth, this.title.getFont().getSize()));

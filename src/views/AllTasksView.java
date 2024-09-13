@@ -34,7 +34,7 @@ public class AllTasksView extends MainLayout {
 		} else {
 			// render tasks
 			for (Task task : taskManager.tasks) {
-				this.add(new TaskPanel(task.finished, task.title, task.description, task.deadline.getTime()));
+				this.add(new TaskPanel(taskManager, task.finished, task.title, task.description, task.deadline.getTime(), task.id));
 				this.add(Box.createRigidArea(new Dimension(0, 10)));
 			}
 		}

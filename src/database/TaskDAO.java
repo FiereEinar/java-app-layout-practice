@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 
+import main.Utils;
 import model.DateValues;
 import model.Task;
 import model.TaskManager;
@@ -75,7 +76,7 @@ public class TaskDAO {
         deadline.set(Calendar.HOUR, Integer.parseInt(taskData[5]));
         deadline.set(Calendar.MINUTE, Integer.parseInt(taskData[6]));
 
-        Task task = new Task(taskData[0], taskData[1], Boolean.parseBoolean(taskData[7]), deadline);
+        Task task = new Task(taskData[0], taskData[1], Boolean.parseBoolean(taskData[7]), deadline, Utils.generateID());
 
         this.tasks.tasks.add(task);
       }

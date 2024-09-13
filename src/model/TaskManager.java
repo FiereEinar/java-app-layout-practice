@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import main.Utils;
+
 public class TaskManager {
 	
 	public ArrayList<Task> tasks = new ArrayList<>();
@@ -18,7 +20,7 @@ public class TaskManager {
 		deadline.set(Calendar.HOUR, hour);
 		deadline.set(Calendar.MINUTE, minutes);
 
-		Task task = new Task(title, description, false, deadline);
+		Task task = new Task(title, description, false, deadline, Utils.generateID());
 
 		tasks.add(task);
 
