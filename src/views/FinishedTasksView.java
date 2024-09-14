@@ -5,6 +5,7 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
+import database.TaskDAO;
 import main.CustomColor;
 import main.CustomFontSize;
 import main.Window;
@@ -16,8 +17,8 @@ public class FinishedTasksView extends MainLayout {
 
 	TaskManager taskManager;
 	
-	public FinishedTasksView(TaskManager tm) {
-		super(tm);
+	public FinishedTasksView(TaskManager tm, TaskDAO taskDAO) {
+		super(tm, taskDAO);
 	}
 	
 	public void render() {

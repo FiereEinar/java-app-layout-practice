@@ -6,6 +6,8 @@ import java.awt.Font;
 import javax.swing.Box;
 import javax.swing.JLabel;
 
+import controllers.AllTasksController;
+import database.TaskDAO;
 import main.CustomColor;
 import main.CustomFontSize;
 import main.Window;
@@ -16,9 +18,12 @@ import ui.TaskPanel;
 public class AllTasksView extends MainLayout {
 
 	private static final long serialVersionUID = 1L;
+
+	AllTasksController controller; 
 	
-	public AllTasksView(TaskManager tm) {
-		super(tm);
+	public AllTasksView(TaskManager tm, TaskDAO taskDAO) {
+		super(tm, taskDAO);
+		this.controller = new AllTasksController(tm, this, taskDAO);
 	}
 
 	public void render() {
@@ -33,8 +38,9 @@ public class AllTasksView extends MainLayout {
 			this.add(label);
 		} else {
 			// render tasks
+			System.out.println(taskManager.tasks.size());
 			for (Task task : taskManager.tasks) {
-				this.add(new TaskPanel(taskManager, task.finished, task.title, task.description, task.deadline.getTime(), task.id));
+				this.add(new TaskPanel(controller, task.finished, task.title, task.description, task.deadline.getTime(), task.id));
 				this.add(Box.createRigidArea(new Dimension(0, 10)));
 			}
 		}

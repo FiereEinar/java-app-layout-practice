@@ -1,5 +1,6 @@
 package controllers;
 
+import database.TaskDAO;
 import main.Window;
 import model.TaskManager;
 import views.AddTaskView;
@@ -11,6 +12,7 @@ public class WindowController {
 	
 	Window window;
 	TaskManager taskManager = new TaskManager();
+	TaskDAO taskDAO = new TaskDAO(taskManager);
 	
 	// views
 	AllTasksView allTasksView;
@@ -22,10 +24,10 @@ public class WindowController {
 		this.window = window;
 		
 		// initialize views
-		allTasksView = new AllTasksView(this.taskManager);
-		addTaskView = new AddTaskView(this.taskManager);
-		upcomingTasksVIew = new UpcomingTasksVIew(this.taskManager);
-		finishedTasksView = new FinishedTasksView(this.taskManager);
+		allTasksView = new AllTasksView(this.taskManager, taskDAO);
+		addTaskView = new AddTaskView(this.taskManager, taskDAO);
+		upcomingTasksVIew = new UpcomingTasksVIew(this.taskManager, taskDAO);
+		finishedTasksView = new FinishedTasksView(this.taskManager, taskDAO);
 	}
 	
 	public void handleAllTasks() {

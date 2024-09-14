@@ -11,10 +11,10 @@ public class AddTaskController {
 	AddTaskView screen;
 	TaskDAO taskDAO;
 
-	public AddTaskController(AddTaskView screen, TaskManager tm) {
+	public AddTaskController(AddTaskView screen, TaskManager tm, TaskDAO taskDAO) {
 		this.taskManager = tm;
 		this.screen = screen;
-		this.taskDAO = new TaskDAO(taskManager);
+		this.taskDAO = taskDAO;
 	}
 
 	public void handleAddTask() {
