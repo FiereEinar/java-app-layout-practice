@@ -28,8 +28,7 @@ public class TaskPanel extends RoundedButton {
 	AllTasksController controller;
 	int id;
 	
-	public TaskPanel(AllTasksController controller, Boolean isDone, String title, String description, Date deadline,
-			int id) {
+	public TaskPanel(AllTasksController controller, Boolean isDone, String title, String description, Date deadline, int id) {
 		super("");
 		this.controller = controller;
 		this.id = id;
@@ -82,8 +81,6 @@ public class TaskPanel extends RoundedButton {
 			public void actionPerformed(ActionEvent e) {
 				controller.taskDAO.deleteTask(id);
 				controller.taskManager.deleteTask(id);
-				// controller.screen.window.controller.handleAllTasks();
-				// removeAll();
 				removeSelf();
 			}
 		});
@@ -95,7 +92,7 @@ public class TaskPanel extends RoundedButton {
 		this.add(this.deleteButton);
 	}
 
-	public void removeSelf() {
+	private void removeSelf() {
 		Component[] componentList = controller.screen.getComponents();
 
 		for (Component c : componentList) {
