@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 
-import main.Utils;
 import model.DateValues;
 import model.Task;
 import model.TaskManager;
@@ -67,9 +66,6 @@ public class TaskDAO {
 
       while ((line = br.readLine()) != null) {
         Task task = convertFileDataToTask(line);
-
-        System.out.println("Task ID: " + task.id);
-        System.out.println("Delete ID: " + id);
         
         // dont include the deleted task to temp file
         if (task.id != id) {

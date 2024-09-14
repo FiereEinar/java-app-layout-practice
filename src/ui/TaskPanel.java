@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -24,24 +25,31 @@ public class TaskPanel extends RoundedButton {
 	NormalMutedText description;
 	NormalMutedText deadline;
 	RoundedButton deleteButton;
-	// TaskManager taskManager;
 	AllTasksController controller;
 	int id;
 	
-	public TaskPanel(AllTasksController controller, Boolean isDone, String title, String description, Date deadline, int id) {
+	public TaskPanel(AllTasksController controller, Boolean isDone, String title, String description, Date deadline,
+			int id) {
 		super("");
 		this.controller = controller;
 		this.id = id;
-		
 		int componentAmount = 4;
+
+		// TaskPanel styling
+		this.setBackground(CustomColor.dark_200);
+		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+		this.setOriginalBackgroundColor(CustomColor.dark_200);
+		this.setHoverBackgroundColor(CustomColor.dark_400);
+		this.setAlignmentX(Container.RIGHT_ALIGNMENT);
+		this.setPreferredSize(new Dimension(labelWidth * componentAmount, panelHeight));
+		this.setVerticalAlignment(SwingConstants.TOP);
+
 		this.checkbox = new JCheckBox();
 		this.checkbox.setBackground(CustomColor.dark_200);
 		this.checkbox.setSelected(isDone);
 		this.checkbox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("changed state");
-				System.out.println(checkbox.isSelected());
 				controller.taskManager.tasks.forEach(t -> {
 					if (id == t.id) {
 						t.finished = checkbox.isSelected();
@@ -74,23 +82,30 @@ public class TaskPanel extends RoundedButton {
 			public void actionPerformed(ActionEvent e) {
 				controller.taskDAO.deleteTask(id);
 				controller.taskManager.deleteTask(id);
-				controller.screen.render();
+				// controller.screen.window.controller.handleAllTasks();
+				// removeAll();
+				removeSelf();
 			}
 		});
 
-		this.setBackground(CustomColor.dark_200);
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));
-		this.setOriginalBackgroundColor(CustomColor.dark_200);
-		this.setHoverBackgroundColor(CustomColor.dark_400);
-		this.setAlignmentX(Container.RIGHT_ALIGNMENT);
-		this.setPreferredSize(new Dimension(labelWidth * componentAmount, panelHeight));
-		this.setVerticalAlignment(SwingConstants.TOP);
-		
 		this.add(this.checkbox);
 		this.add(this.title);
 		this.add(this.description);
 		this.add(this.deadline);
 		this.add(this.deleteButton);
+	}
+
+	public void removeSelf() {
+		Component[] componentList = controller.screen.getComponents();
+
+		for (Component c : componentList) {
+			if (c == this) {
+				controller.screen.remove(c);
+			}
+		}
+
+		controller.screen.revalidate();
+		controller.screen.repaint();
 	}
 
 }

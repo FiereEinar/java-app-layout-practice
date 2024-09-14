@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import database.TaskDAO;
 import main.CustomColor;
+import main.Window;
 import model.TaskManager;
 
 interface MainLayoutInterface {
@@ -14,13 +15,15 @@ interface MainLayoutInterface {
 public class MainLayout extends JPanel implements MainLayoutInterface {
 
 	private static final long serialVersionUID = 1L;
-	TaskManager taskManager;
-	TaskDAO taskDAO;
+	public TaskManager taskManager;
+	public TaskDAO taskDAO;
+	public Window window;
 
-	public MainLayout(TaskManager taskManager, TaskDAO taskDAO) {
+	public MainLayout(Window window, TaskManager taskManager, TaskDAO taskDAO) {
 		this.taskManager = taskManager;
 		this.taskDAO = taskDAO;
-		
+		this.window = window;
+
 		this.setBackground(CustomColor.dark_200);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		render();

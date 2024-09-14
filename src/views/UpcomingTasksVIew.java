@@ -17,8 +17,8 @@ public class UpcomingTasksVIew extends MainLayout {
 	
 	TaskManager taskManager;
 
-	public UpcomingTasksVIew(TaskManager tm, TaskDAO taskDAO) {
-		super(tm, taskDAO);
+	public UpcomingTasksVIew(Window window, TaskManager tm, TaskDAO taskDAO) {
+		super(window, tm, taskDAO);
 	}
 	
 	public void render() {

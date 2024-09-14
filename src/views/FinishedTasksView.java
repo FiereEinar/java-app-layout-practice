@@ -17,8 +17,8 @@ public class FinishedTasksView extends MainLayout {
 
 	TaskManager taskManager;
 	
-	public FinishedTasksView(TaskManager tm, TaskDAO taskDAO) {
-		super(tm, taskDAO);
+	public FinishedTasksView(Window window, TaskManager tm, TaskDAO taskDAO) {
+		super(window, tm, taskDAO);
 	}
 	
 	public void render() {

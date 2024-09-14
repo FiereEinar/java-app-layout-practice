@@ -21,8 +21,8 @@ public class AllTasksView extends MainLayout {
 
 	AllTasksController controller; 
 	
-	public AllTasksView(TaskManager tm, TaskDAO taskDAO) {
-		super(tm, taskDAO);
+	public AllTasksView(Window window, TaskManager tm, TaskDAO taskDAO) {
+		super(window, tm, taskDAO);
 		this.controller = new AllTasksController(tm, this, taskDAO);
 	}
 
@@ -38,7 +38,6 @@ public class AllTasksView extends MainLayout {
 			this.add(label);
 		} else {
 			// render tasks
-			System.out.println(taskManager.tasks.size());
 			for (Task task : taskManager.tasks) {
 				this.add(new TaskPanel(controller, task.finished, task.title, task.description, task.deadline.getTime(), task.id));
 				this.add(Box.createRigidArea(new Dimension(0, 10)));

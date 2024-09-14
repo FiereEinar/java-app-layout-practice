@@ -21,7 +21,7 @@ public class Window extends JFrame {
 	public static String font = "Calibri";
 	
 	public JLabel title = new JLabel();
-	private WindowController controller = new WindowController(this);
+	public WindowController controller = new WindowController(this);
 	public JPanel mainContent = new JPanel();		
 	public JPanel content = new JPanel();
 	
@@ -34,6 +34,9 @@ public class Window extends JFrame {
 		header();
 		sidebar();
 		mainContent();
+
+		// default opened page
+		controller.handleAllTasks();
 	}
 	
 	private void header() {
@@ -45,7 +48,7 @@ public class Window extends JFrame {
 		JLabel label = new JLabel("Header");
 		label.setForeground(CustomColor.white);
 		label.setFont(new Font(font, Font.BOLD, CustomFontSize.xlarge));
-//		label.setIcon(Utils.getImageIcon("res/images/logo.png", 40, 40));
+		// label.setIcon(Utils.getImageIcon("res/images/logo.png", 40, 40));
 		panel.add(label);
 		this.add(panel, BorderLayout.NORTH);
 	}

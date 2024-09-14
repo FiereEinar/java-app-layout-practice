@@ -24,16 +24,16 @@ public class WindowController {
 		this.window = window;
 		
 		// initialize views
-		allTasksView = new AllTasksView(this.taskManager, taskDAO);
-		addTaskView = new AddTaskView(this.taskManager, taskDAO);
-		upcomingTasksVIew = new UpcomingTasksVIew(this.taskManager, taskDAO);
-		finishedTasksView = new FinishedTasksView(this.taskManager, taskDAO);
+		allTasksView = new AllTasksView(window, this.taskManager, taskDAO);
+		addTaskView = new AddTaskView(window, this.taskManager, taskDAO);
+		upcomingTasksVIew = new UpcomingTasksVIew(window, this.taskManager, taskDAO);
+		finishedTasksView = new FinishedTasksView(window, this.taskManager, taskDAO);
 	}
 	
 	public void handleAllTasks() {
 		window.mainContent.removeAll();
 		window.title.setText("All Tasks");
-		
+
 		allTasksView.render();
 		window.mainContent.add(allTasksView);
 	}

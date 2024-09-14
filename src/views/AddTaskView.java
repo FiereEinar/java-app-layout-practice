@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import controllers.AddTaskController;
 import database.TaskDAO;
 import main.CustomColor;
+import main.Window;
 import model.TaskManager;
 import ui.Input;
 import ui.InputField;
@@ -47,8 +48,8 @@ public class AddTaskView extends MainLayout {
 	
 	AddTaskController controller;
 	
-	public AddTaskView(TaskManager tm, TaskDAO taskDAO) {
-		super(tm, taskDAO);
+	public AddTaskView(Window window, TaskManager tm, TaskDAO taskDAO) {
+		super(window, tm, taskDAO);
 		this.controller = new AddTaskController(this, tm, taskDAO);
 	}
 	
