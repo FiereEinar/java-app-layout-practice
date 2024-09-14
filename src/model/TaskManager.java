@@ -27,4 +27,8 @@ public class TaskManager {
 		return task;
 	}
 
+	public void deleteTask(int id) {
+		tasks.removeIf(t -> (t.id == id));
+	}
+
 }

@@ -69,6 +69,14 @@ public class TaskPanel extends RoundedButton {
 		this.deleteButton.setHoverBackgroundColor(CustomColor.danger);
 		this.deleteButton.setForegroundHover(CustomColor.white);
 		this.deleteButton.setForegroundDefault(CustomColor.white);
+		this.deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.taskDAO.deleteTask(id);
+				controller.taskManager.deleteTask(id);
+				controller.screen.render();
+			}
+		});
 
 		this.setBackground(CustomColor.dark_200);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
