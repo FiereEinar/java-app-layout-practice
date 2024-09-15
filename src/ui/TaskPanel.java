@@ -13,11 +13,12 @@ import javax.swing.SwingConstants;
 
 import controllers.AllTasksController;
 import main.CustomColor;
+import model.Task;
 
 public class TaskPanel extends RoundedButton {
 	
 	private static final long serialVersionUID = 1L;
-	private final int labelWidth = 230;
+	private final int labelWidth = 250;
 	private final int panelHeight = 40;
 	
 	JCheckBox checkbox;
@@ -43,6 +44,23 @@ public class TaskPanel extends RoundedButton {
 		this.setAlignmentX(Container.RIGHT_ALIGNMENT);
 		this.setPreferredSize(new Dimension(labelWidth * componentAmount, panelHeight));
 		this.setVerticalAlignment(SwingConstants.TOP);
+		this.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Task thisTask = null;
+				
+				for (Task t : controller.screen.taskManager.tasks) {
+					if (t.id == id) {
+						thisTask = t;
+						break;
+					}
+				}
+				
+				controller.screen.window.controller.handleAddTask();
+				controller.screen.window.controller.addTaskView.setValues(thisTask);			
+				controller.screen.window.title.setText("Edit Task");	
+			}
+		});
 
 		this.checkbox = new JCheckBox();
 		this.checkbox.setBackground(CustomColor.dark_200);

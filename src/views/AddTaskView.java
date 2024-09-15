@@ -15,6 +15,8 @@ import controllers.AddTaskController;
 import database.TaskDAO;
 import main.CustomColor;
 import main.Window;
+import model.DateValues;
+import model.Task;
 import model.TaskManager;
 import ui.Input;
 import ui.InputField;
@@ -47,6 +49,8 @@ public class AddTaskView extends MainLayout {
 	RoundedButton submitButton;
 	
 	AddTaskController controller;
+
+	Boolean editingMode = false;
 	
 	public AddTaskView(Window window, TaskManager tm, TaskDAO taskDAO) {
 		super(window, tm, taskDAO);
@@ -91,6 +95,8 @@ public class AddTaskView extends MainLayout {
 		formContainer.add(Box.createRigidArea(new Dimension(0, 10)));
 
 		this.add(formContainer);
+
+		resetValues();
 	}
 	
 	private void setupDateInputField() {
@@ -146,7 +152,13 @@ public class AddTaskView extends MainLayout {
 		submitButton.setForegroundDefault(CustomColor.dark_200);
 		submitButton.setForegroundHover(CustomColor.white);
 		submitButton.setBorder(new EmptyBorder(10, 25, 10, 25));
-		submitButton.addActionListener(e -> controller.handleAddTask());
+		submitButton.addActionListener(e -> {
+			if (editingMode) {
+				
+			} else {
+				controller.handleAddTask();
+			}
+		});
 		
 		actionsContainer.add(submitButton);
 	}
@@ -188,10 +200,25 @@ public class AddTaskView extends MainLayout {
 	}
 
 	public void resetValues() {
+		editingMode = false;
+		setDefaultValues();
 		this.titleField.input.setText("");
 		this.descriptionField.input.setText("");
 		this.hourField.input.setText("");
 		this.minuteField.input.setText("");
+	}
+
+	public void setValues(Task task) {
+		editingMode = true;
+		DateValues date = new DateValues(task.deadline);
+		this.titleField.input.setText(task.title);
+		this.descriptionField.input.setText(task.description);
+
+		this.yearField.input.setText("" + date.year);
+		this.monthField.input.setText("" + date.month);
+		this.dayField.input.setText("" + date.day);
+		this.hourField.input.setText("" + date.hour);
+		this.minuteField.input.setText("" + date.minute);
 	}
 
 }

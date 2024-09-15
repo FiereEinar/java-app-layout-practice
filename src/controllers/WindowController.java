@@ -10,15 +10,15 @@ import views.UpcomingTasksVIew;
 
 public class WindowController {
 	
-	Window window;
+	public Window window;
 	TaskManager taskManager = new TaskManager();
 	TaskDAO taskDAO = new TaskDAO(taskManager);
 	
 	// views
-	AllTasksView allTasksView;
-	AddTaskView addTaskView;
-	UpcomingTasksVIew upcomingTasksVIew;
-	FinishedTasksView finishedTasksView;
+	public AllTasksView allTasksView;
+	public AddTaskView addTaskView;
+	public UpcomingTasksVIew upcomingTasksVIew;
+	public FinishedTasksView finishedTasksView;
 
 	public WindowController(Window window) {
 		this.window = window;
