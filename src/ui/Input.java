@@ -31,8 +31,6 @@ public class Input extends JTextField {
 		this.setForeground(CustomColor.dark_500);
 		this.setFont(new Font(Window.font, Font.PLAIN, CustomFontSize.small));
 		this.setCaretColor(CustomColor.dark_500);
-
-		// if i add this, the input gets uninteractive
 		this.setBorder(new LineBorder(CustomColor.dark_400, 1));
 		this.setFocusable(true);
 	}

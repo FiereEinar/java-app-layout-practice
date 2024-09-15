@@ -50,7 +50,7 @@ public class AddTaskView extends MainLayout {
 	
 	public AddTaskView(Window window, TaskManager tm, TaskDAO taskDAO) {
 		super(window, tm, taskDAO);
-		this.controller = new AddTaskController(this, tm, taskDAO);
+		this.controller = new AddTaskController(this);
 	}
 	
 	public void render() {

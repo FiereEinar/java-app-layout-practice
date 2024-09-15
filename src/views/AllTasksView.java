@@ -1,9 +1,7 @@
 package views;
 
-import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.Box;
 import javax.swing.JLabel;
 
 import controllers.AllTasksController;
@@ -23,7 +21,7 @@ public class AllTasksView extends MainLayout {
 	
 	public AllTasksView(Window window, TaskManager tm, TaskDAO taskDAO) {
 		super(window, tm, taskDAO);
-		this.controller = new AllTasksController(tm, this, taskDAO);
+		this.controller = new AllTasksController(this);
 	}
 
 	public void render() {
@@ -40,7 +38,7 @@ public class AllTasksView extends MainLayout {
 			// render tasks
 			for (Task task : taskManager.tasks) {
 				this.add(new TaskPanel(controller, task.finished, task.title, task.description, task.deadline.getTime(), task.id));
-				this.add(Box.createRigidArea(new Dimension(0, 10)));
+				// this.add(Box.createRigidArea(new Dimension(0, 10))); // gap
 			}
 		}
 	}

@@ -13,10 +13,11 @@ import model.TaskManager;
 
 public class TaskDAO {
 
-  TaskManager tasks;
-  String directory = "storage";
-  String originalTasksFilename = "test.csv";
-  String tasksFilename = directory + "/" + originalTasksFilename;
+  private final TaskManager tasks;
+  private final String directory = "storage";
+  private final String originalTasksFilename = "test.csv";
+  private final String tasksFilename = directory + "/" + originalTasksFilename;
+  private final String tempFilename = directory + "/temp___" + originalTasksFilename;
   
   public TaskDAO(TaskManager tm) {
     this.tasks = tm;
@@ -58,7 +59,6 @@ public class TaskDAO {
       String line = "";
 
       // setup files
-      String tempFilename = directory + "/temp___" + originalTasksFilename;
       createFile(tempFilename);
 
       // file writer for temp file
@@ -66,7 +66,7 @@ public class TaskDAO {
 
       while ((line = br.readLine()) != null) {
         Task task = convertFileDataToTask(line);
-        
+
         // dont include the deleted task to temp file
         if (task.id != id) {
           fw.append(convertTaskToFileString(task));
@@ -85,9 +85,55 @@ public class TaskDAO {
       System.out.println("Failed to delete an item");
       e.printStackTrace();
     }
+
+    return true;
+  }
+  
+  /*
+   * Updates the "finished" Boolean value of a task in the file
+   */
+  public Boolean updateTaskFinishedStatus(int taskID, Boolean finished) {
+    try {
+      // reader for the file
+      BufferedReader br = new BufferedReader(new FileReader(tasksFilename));
+      String line = "";
+
+      // setup files
+      createFile(tempFilename);
+
+      // file writer for temp file
+      FileWriter fw = new FileWriter(tempFilename, true);
+
+      while ((line = br.readLine()) != null) {
+        Task task = convertFileDataToTask(line);
+
+        if (task.id == taskID)
+          task.finished = finished;
+
+        fw.append(convertTaskToFileString(task));
+      }
+
+      br.close();
+      fw.close();
+
+      // swap the temp file and original file
+      File original = new File(tasksFilename);
+      original.delete();
+      new File(tempFilename).renameTo(original);
+
+    } catch (IOException e) {
+      System.out.println("Failed to delete an item");
+      e.printStackTrace();
+    }
+
     return true;
   }
 
+  /**
+   * Converts a BufferedReader.readLine() into a Task
+   * @param filedata
+   * @return Task
+   */
   private Task convertFileDataToTask(String filedata) {
     String[] taskData = filedata.split(",");
 
@@ -102,6 +148,11 @@ public class TaskDAO {
         Integer.parseInt(taskData[8]));
   }
   
+  /**
+   * Converts a Task values into a csv format
+   * @param task
+   * @return String in csv format
+   */
   private String convertTaskToFileString(Task task) {
     DateValues date = new DateValues(task.deadline);
 

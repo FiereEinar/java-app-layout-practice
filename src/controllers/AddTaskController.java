@@ -1,20 +1,14 @@
 package controllers;
 
-import database.TaskDAO;
 import model.Task;
-import model.TaskManager;
 import views.AddTaskView;
 
 public class AddTaskController {
 	
-	TaskManager taskManager;
 	AddTaskView screen;
-	TaskDAO taskDAO;
 
-	public AddTaskController(AddTaskView screen, TaskManager tm, TaskDAO taskDAO) {
-		this.taskManager = tm;
+	public AddTaskController(AddTaskView screen) {
 		this.screen = screen;
-		this.taskDAO = taskDAO;
 	}
 
 	public void handleAddTask() {
@@ -30,9 +24,9 @@ public class AddTaskController {
 		int hour = screen.getHour();
 		int minutes = screen.getMinutes();
 		
-		Task task = taskManager.addTask(title, description, year, month, day, hour, minutes);
+		Task task = screen.taskManager.addTask(title, description, year, month, day, hour, minutes);
 		// save to file
-		taskDAO.saveTask(task);
+		screen.taskDAO.saveTask(task);
 
 		screen.resetValues();
 	}

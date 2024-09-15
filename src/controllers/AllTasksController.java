@@ -1,23 +1,32 @@
 package controllers;
 
-import database.TaskDAO;
-import model.TaskManager;
+import model.Task;
 import views.AllTasksView;
 
 public class AllTasksController {
   
-  public TaskManager taskManager;
 	public AllTasksView screen;
-  public TaskDAO taskDAO;
 
-  public AllTasksController(TaskManager tm, AllTasksView screen, TaskDAO taskDAO) {
-    this.taskManager = tm;
+  public AllTasksController(AllTasksView screen) {
     this.screen = screen;
-    this.taskDAO = taskDAO;
+  }
+
+  public void handleDeleteTask(int taskID) {
+    screen.taskDAO.deleteTask(taskID);
+    screen.taskManager.deleteTask(taskID);
   }
 
   // TODO: actually implement this
-  public void handleUpdateTask(int taskID) {
+  public void handleCheckboxUpdate(int taskID, Boolean checked) {
+    // update in memory
+    for (Task t : screen.taskManager.tasks) {
+      if (t.id == taskID) {
+        t.finished = checked;
+        break;
+      }
+    }
     
+    // update from storage
+    screen.taskDAO.updateTaskFinishedStatus(taskID, checked);
   }
 }

@@ -28,7 +28,8 @@ public class TaskPanel extends RoundedButton {
 	AllTasksController controller;
 	int id;
 	
-	public TaskPanel(AllTasksController controller, Boolean isDone, String title, String description, Date deadline, int id) {
+	public TaskPanel(AllTasksController controller, Boolean isDone, String title, String description, Date deadline,
+			int id) {
 		super("");
 		this.controller = controller;
 		this.id = id;
@@ -49,13 +50,7 @@ public class TaskPanel extends RoundedButton {
 		this.checkbox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.taskManager.tasks.forEach(t -> {
-					if (id == t.id) {
-						t.finished = checkbox.isSelected();
-						// update the storage
-						controller.handleUpdateTask(id);
-					}
-				});
+				controller.handleCheckboxUpdate(id, checkbox.isSelected());
 			}
 		});
 
@@ -79,8 +74,7 @@ public class TaskPanel extends RoundedButton {
 		this.deleteButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.taskDAO.deleteTask(id);
-				controller.taskManager.deleteTask(id);
+				controller.handleDeleteTask(id);
 				removeSelf();
 			}
 		});
@@ -92,9 +86,14 @@ public class TaskPanel extends RoundedButton {
 		this.add(this.deleteButton);
 	}
 
+	/**
+	 * Removes itself from the parent, used when this component is deleted
+	 */
 	private void removeSelf() {
+		// get the components (TaskPanels) inside the screen container
 		Component[] componentList = controller.screen.getComponents();
 
+		// find this exact component and remove it from the parent
 		for (Component c : componentList) {
 			if (c == this) {
 				controller.screen.remove(c);
