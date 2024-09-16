@@ -11,7 +11,7 @@ import model.DateValues;
 import model.Task;
 import model.TaskManager;
 
-public class TaskDAO {
+public class TaskDAO implements DAOInterface<Task> {
 
   private final TaskManager tasks;
   private final String directory = "storage";
@@ -30,7 +30,7 @@ public class TaskDAO {
    * @param task
    * @return Boolean - whether the Task has been saved succesfully
    */
-  public Boolean saveTask(Task task) {
+  public void add(Task task) {
 
     try {
       
@@ -42,8 +42,6 @@ public class TaskDAO {
       System.out.println("Failed to add task");
       e.printStackTrace();
     }
-
-    return true;
   }
 
   /**
@@ -51,7 +49,7 @@ public class TaskDAO {
    * @param id
    * @return Boolean - whether the task has been successfully deleted
    */
-  public Boolean deleteTask(int id) {
+  public void remove(int id) {
 
     try {
       // reader for the file
@@ -85,8 +83,6 @@ public class TaskDAO {
       System.out.println("Failed to delete an item");
       e.printStackTrace();
     }
-
-    return true;
   }
 
   /**
@@ -95,7 +91,7 @@ public class TaskDAO {
    * @param updatedTask Task - an updated version of the task
    * @return
    */
-  public Boolean updateTask(int taskID, Task updatedTask) {
+  public void update(int taskID, Task updatedTask) {
     try {
       // reader for the file
       BufferedReader br = new BufferedReader(new FileReader(tasksFilename));
@@ -129,48 +125,6 @@ public class TaskDAO {
       System.out.println("Failed to update an item");
       e.printStackTrace();
     }
-
-    return true;
-  }
-  
-  /*
-   * Updates the "finished" Boolean value of a task in the file
-   */
-  public Boolean updateTaskFinishedStatus(int taskID, Boolean finished) {
-    try {
-      // reader for the file
-      BufferedReader br = new BufferedReader(new FileReader(tasksFilename));
-      String line = "";
-
-      // setup files
-      createFile(tempFilename);
-
-      // file writer for temp file
-      FileWriter fw = new FileWriter(tempFilename, true);
-
-      while ((line = br.readLine()) != null) {
-        Task task = convertFileDataToTask(line);
-
-        if (task.id == taskID)
-          task.finished = finished;
-
-        fw.append(convertTaskToFileString(task));
-      }
-
-      br.close();
-      fw.close();
-
-      // swap the temp file and original file
-      File original = new File(tasksFilename);
-      original.delete();
-      new File(tempFilename).renameTo(original);
-
-    } catch (IOException e) {
-      System.out.println("Failed to delete an item");
-      e.printStackTrace();
-    }
-
-    return true;
   }
 
   /**
@@ -218,7 +172,7 @@ public class TaskDAO {
    * Creates the storage directory and files to store data,
    * if there's an existing file, it reads it
    */
-  public void initialize() {
+  private void initialize() {
     createDir(directory);
     if (createFile(tasksFilename))
       return;

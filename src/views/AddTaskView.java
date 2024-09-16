@@ -156,6 +156,7 @@ public class AddTaskView extends MainLayout {
 		submitButton.addActionListener(e -> {
 			if (editingMode) {
 				controller.handleEditTask(updatedTaskID);
+				window.controller.handleAllTasks();
 			} else {
 				controller.handleAddTask();
 			}

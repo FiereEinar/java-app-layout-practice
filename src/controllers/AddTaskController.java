@@ -22,7 +22,7 @@ public class AddTaskController {
 
 		Task task = screen.taskManager.addTask(title, description, date.origin);
 		// save to file
-		screen.taskDAO.saveTask(task);
+		screen.taskDAO.add(task);
 
 		screen.resetValues();
 	}
@@ -37,7 +37,7 @@ public class AddTaskController {
 
 		Task task = screen.taskManager.createTask(title, description, date.origin, taskID);
 		screen.taskManager.updateTask(taskID, task);
-		screen.taskDAO.updateTask(taskID, task);
+		screen.taskDAO.update(taskID, task);
 		screen.resetValues();
 	}
 	
