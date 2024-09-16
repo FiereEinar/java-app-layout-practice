@@ -51,6 +51,8 @@ public class AddTaskView extends MainLayout {
 	AddTaskController controller;
 
 	Boolean editingMode = false;
+
+	int updatedTaskID;
 	
 	public AddTaskView(Window window, TaskManager tm, TaskDAO taskDAO) {
 		super(window, tm, taskDAO);
@@ -154,7 +156,7 @@ public class AddTaskView extends MainLayout {
 		submitButton.setBorder(new EmptyBorder(10, 25, 10, 25));
 		submitButton.addActionListener(e -> {
 			if (editingMode) {
-				
+				controller.handleEditTask(updatedTaskID);
 			} else {
 				controller.handleAddTask();
 			}
@@ -210,6 +212,7 @@ public class AddTaskView extends MainLayout {
 
 	public void setValues(Task task) {
 		editingMode = true;
+		updatedTaskID = task.id;
 		DateValues date = new DateValues(task.deadline);
 		this.titleField.input.setText(task.title);
 		this.descriptionField.input.setText(task.description);

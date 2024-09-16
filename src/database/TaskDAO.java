@@ -39,7 +39,7 @@ public class TaskDAO {
       fw.close();
 
     } catch (IOException e) {
-      System.out.println("Failed to open tasks file");
+      System.out.println("Failed to add task");
       e.printStackTrace();
     }
 
@@ -83,6 +83,44 @@ public class TaskDAO {
 
     } catch (IOException e) {
       System.out.println("Failed to delete an item");
+      e.printStackTrace();
+    }
+
+    return true;
+  }
+
+  public Boolean updateTask(int taskID, Task updatedTask) {
+    try {
+      // reader for the file
+      BufferedReader br = new BufferedReader(new FileReader(tasksFilename));
+      String line = "";
+
+      // setup files
+      createFile(tempFilename);
+
+      // file writer for temp file
+      FileWriter fw = new FileWriter(tempFilename, true);
+
+      while ((line = br.readLine()) != null) {
+        Task task = convertFileDataToTask(line);
+        
+        if (task.id != taskID) {
+          fw.append(convertTaskToFileString(task));
+        } else {
+          fw.append(convertTaskToFileString(updatedTask));
+        }
+      }
+
+      br.close();
+      fw.close();
+
+      // swap the temp file and original file
+      File original = new File(tasksFilename);
+      original.delete();
+      new File(tempFilename).renameTo(original);
+
+    } catch (IOException e) {
+      System.out.println("Failed to update an item");
       e.printStackTrace();
     }
 

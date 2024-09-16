@@ -12,22 +12,43 @@ public class AddTaskController {
 	}
 
 	public void handleAddTask() {
-		if (!validateValues()) return;
-		
+		if (!validateValues())
+			return;
+
 		String title = screen.getTitle();
 		String description = screen.getDescription();
-		
+
 		int year = screen.getYear();
 		int month = screen.getMonth();
 		int day = screen.getDayOfMonth();
-		
+
 		int hour = screen.getHour();
 		int minutes = screen.getMinutes();
-		
+
 		Task task = screen.taskManager.addTask(title, description, year, month, day, hour, minutes);
 		// save to file
 		screen.taskDAO.saveTask(task);
 
+		screen.resetValues();
+	}
+	
+	public void handleEditTask(int taskID) {
+		if (!validateValues())
+			return;
+
+		String title = screen.getTitle();
+		String description = screen.getDescription();
+
+		int year = screen.getYear();
+		int month = screen.getMonth();
+		int day = screen.getDayOfMonth();
+
+		int hour = screen.getHour();
+		int minutes = screen.getMinutes();
+
+		Task task = screen.taskManager.createTask(title, description, year, month, day, hour, minutes, taskID);
+		screen.taskManager.updateTask(taskID, task);
+		screen.taskDAO.updateTask(taskID, task);
 		screen.resetValues();
 	}
 	
