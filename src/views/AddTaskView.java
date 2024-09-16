@@ -70,12 +70,11 @@ public class AddTaskView extends MainLayout {
 		descriptionField = new InputField("Description: ");
 		
 		// TODO: refactor this extra container
-		// putting the title and description inside a container so that is has the same alignment as the rest
+		// putting the title and description inside a container so that is has the same alignment as the rest, component margin issue
+		NormalMutedText deadlineLabel = new NormalMutedText("Deadline for this task: ");
 		JPanel c = new JPanel();
 		c.setBackground(CustomColor.dark_200);
 		c.setLayout(new FlowLayout(FlowLayout.LEFT));
-		
-		NormalMutedText deadlineLabel = new NormalMutedText("Deadline for this task: ");
 		c.add(deadlineLabel);
 
 		setupDateInputField();
@@ -186,7 +185,7 @@ public class AddTaskView extends MainLayout {
 	}
 	
 	public int getMonth() {
-		return Integer.parseInt(this.monthField.input.getText());
+		return Integer.parseInt(this.monthField.input.getText()) - 1;
 	}
 	
 	public int getDayOfMonth() {
@@ -199,6 +198,10 @@ public class AddTaskView extends MainLayout {
 	
 	public int getMinutes() {
 		return Integer.parseInt(this.minuteField.input.getText());
+	}
+
+	public DateValues getDateValue() {
+		return new DateValues(getYear(), getMonth(), getDayOfMonth(), getHour(), getMinutes());
 	}
 
 	public void resetValues() {
@@ -218,7 +221,7 @@ public class AddTaskView extends MainLayout {
 		this.descriptionField.input.setText(task.description);
 
 		this.yearField.input.setText("" + date.year);
-		this.monthField.input.setText("" + date.month);
+		this.monthField.input.setText("" + (date.month + 1));
 		this.dayField.input.setText("" + date.day);
 		this.hourField.input.setText("" + date.hour);
 		this.minuteField.input.setText("" + date.minute);

@@ -1,5 +1,6 @@
 package controllers;
 
+import model.DateValues;
 import model.Task;
 import views.AddTaskView;
 
@@ -17,15 +18,9 @@ public class AddTaskController {
 
 		String title = screen.getTitle();
 		String description = screen.getDescription();
+		DateValues date = screen.getDateValue();
 
-		int year = screen.getYear();
-		int month = screen.getMonth();
-		int day = screen.getDayOfMonth();
-
-		int hour = screen.getHour();
-		int minutes = screen.getMinutes();
-
-		Task task = screen.taskManager.addTask(title, description, year, month, day, hour, minutes);
+		Task task = screen.taskManager.addTask(title, description, date.origin);
 		// save to file
 		screen.taskDAO.saveTask(task);
 
@@ -38,15 +33,9 @@ public class AddTaskController {
 
 		String title = screen.getTitle();
 		String description = screen.getDescription();
+		DateValues date = screen.getDateValue();
 
-		int year = screen.getYear();
-		int month = screen.getMonth();
-		int day = screen.getDayOfMonth();
-
-		int hour = screen.getHour();
-		int minutes = screen.getMinutes();
-
-		Task task = screen.taskManager.createTask(title, description, year, month, day, hour, minutes, taskID);
+		Task task = screen.taskManager.createTask(title, description, date.origin, taskID);
 		screen.taskManager.updateTask(taskID, task);
 		screen.taskDAO.updateTask(taskID, task);
 		screen.resetValues();

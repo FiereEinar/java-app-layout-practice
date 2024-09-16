@@ -89,6 +89,12 @@ public class TaskDAO {
     return true;
   }
 
+  /**
+   * Updates a task inside the file storage
+   * @param taskID int - ID of the task to be updated
+   * @param updatedTask Task - an updated version of the task
+   * @return
+   */
   public Boolean updateTask(int taskID, Task updatedTask) {
     try {
       // reader for the file
