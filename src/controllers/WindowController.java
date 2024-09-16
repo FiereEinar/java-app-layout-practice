@@ -2,10 +2,12 @@ package controllers;
 
 import database.TaskDAO;
 import main.Window;
+import model.Task;
 import model.TaskManager;
 import views.AddTaskView;
 import views.AllTasksView;
 import views.FinishedTasksView;
+import views.TaskView;
 import views.UpcomingTasksVIew;
 
 public class WindowController {
@@ -19,6 +21,7 @@ public class WindowController {
 	public AddTaskView addTaskView;
 	public UpcomingTasksVIew upcomingTasksVIew;
 	public FinishedTasksView finishedTasksView;
+	public TaskView taskView;
 
 	public WindowController(Window window) {
 		this.window = window;
@@ -28,6 +31,7 @@ public class WindowController {
 		addTaskView = new AddTaskView(window, this.taskManager, taskDAO);
 		upcomingTasksVIew = new UpcomingTasksVIew(window, this.taskManager, taskDAO);
 		finishedTasksView = new FinishedTasksView(window, this.taskManager, taskDAO);
+		taskView = new TaskView(window, this.taskManager, taskDAO);
 	}
 	
 	public void handleAllTasks() {
@@ -60,6 +64,15 @@ public class WindowController {
 
 		finishedTasksView.render();
 		window.mainContent.add(finishedTasksView);
+	}
+
+	public void handleTaskView(Task task) {
+		window.mainContent.removeAll();
+		window.title.setText("Title: " + task.title);
+		taskView.setValue(task);
+
+		taskView.render();
+		window.mainContent.add(taskView);
 	}
 
 }

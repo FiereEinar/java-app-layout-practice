@@ -26,7 +26,7 @@ public class MainLayout extends JPanel implements MainLayoutInterface {
 
 		this.setBackground(CustomColor.dark_200);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		render();
+		// render();
 	}
 
 	@Override

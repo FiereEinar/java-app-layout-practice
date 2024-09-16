@@ -51,12 +51,13 @@ public class TaskPanel extends RoundedButton {
 			public void actionPerformed(ActionEvent e) {
 				Task thisTask = controller.screen.taskManager.find(id);
 
-				// render the add task form
-				controller.screen.window.controller.handleAddTask();
-				// set values for the form
-				controller.screen.window.controller.addTaskView.setValues(thisTask);
-				// set form title
-				controller.screen.window.title.setText("Edit Task");	
+				controller.screen.window.controller.handleTaskView(thisTask);
+				// // render the add task form
+				// controller.screen.window.controller.handleAddTask();
+				// // set values for the form
+				// controller.screen.window.controller.addTaskView.setValues(thisTask);
+				// // set form title
+				// controller.screen.window.title.setText("Edit Task");	
 			}
 		});
 
