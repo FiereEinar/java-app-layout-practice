@@ -36,7 +36,7 @@ public class TaskPanel extends RoundedButton {
 		this.id = id;
 		int componentAmount = 4;
 
-		// TaskPanel styling
+		// TaskPanel styling / configurations
 		this.setBackground(CustomColor.dark_200);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setOriginalBackgroundColor(CustomColor.dark_200);
@@ -44,59 +44,30 @@ public class TaskPanel extends RoundedButton {
 		this.setAlignmentX(Container.RIGHT_ALIGNMENT);
 		this.setPreferredSize(new Dimension(labelWidth * componentAmount, panelHeight));
 		this.setVerticalAlignment(SwingConstants.TOP);
+
+		// on click listener
 		this.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Task thisTask = null;
-				
-				for (Task t : controller.screen.taskManager.tasks) {
-					if (t.id == id) {
-						thisTask = t;
-						break;
-					}
-				}
-				
+				Task thisTask = controller.screen.taskManager.find(id);
+
+				// render the add task form
 				controller.screen.window.controller.handleAddTask();
-				controller.screen.window.controller.addTaskView.setValues(thisTask);			
+				// set values for the form
+				controller.screen.window.controller.addTaskView.setValues(thisTask);
+				// set form title
 				controller.screen.window.title.setText("Edit Task");	
 			}
 		});
 
-		this.checkbox = new JCheckBox();
-		this.checkbox.setBackground(CustomColor.dark_200);
-		this.checkbox.setSelected(isDone);
-		this.checkbox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.handleCheckboxUpdate(id, checkbox.isSelected());
-			}
-		});
+		// setup components inside this task panel
+		setupCheckbox(isDone);
+		setupTitle(title);
+		setupDescription(description);
+		setupDeadline(deadline);
+		setupDeleteButton();
 
-		this.title = new NormalMutedText(title);
-		this.title.setPreferredSize(new Dimension(labelWidth, this.title.getFont().getSize()));
-		this.title.setHorizontalAlignment(SwingConstants.LEFT);
-
-		this.description = new NormalMutedText(description);
-		this.description.setPreferredSize(new Dimension(labelWidth, this.title.getFont().getSize()));
-		this.description.setHorizontalAlignment(SwingConstants.LEFT);
-
-		this.deadline = new NormalMutedText(deadline.toString());
-		this.deadline.setPreferredSize(new Dimension(labelWidth, this.title.getFont().getSize()));
-		this.deadline.setHorizontalAlignment(SwingConstants.LEFT);
-
-		this.deleteButton = new RoundedButton("Delete");
-		this.deleteButton.setOriginalBackgroundColor(CustomColor.danger);
-		this.deleteButton.setHoverBackgroundColor(CustomColor.danger);
-		this.deleteButton.setForegroundHover(CustomColor.white);
-		this.deleteButton.setForegroundDefault(CustomColor.white);
-		this.deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				controller.handleDeleteTask(id);
-				removeSelf();
-			}
-		});
-
+		// add the components to this panel
 		this.add(this.checkbox);
 		this.add(this.title);
 		this.add(this.description);
@@ -120,6 +91,51 @@ public class TaskPanel extends RoundedButton {
 
 		controller.screen.revalidate();
 		controller.screen.repaint();
+	}
+
+	private void setupCheckbox(Boolean isDone) {
+		checkbox = new JCheckBox();
+		checkbox.setBackground(CustomColor.dark_200);
+		checkbox.setSelected(isDone);
+		checkbox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.handleCheckboxUpdate(id, checkbox.isSelected());
+			}
+		});
+	}
+
+	private void setupTitle(String text) {
+		title = new NormalMutedText(text);
+		title.setPreferredSize(new Dimension(labelWidth, title.getFont().getSize()));
+		title.setHorizontalAlignment(SwingConstants.LEFT);
+	}
+
+	private void setupDescription(String text) {
+		description = new NormalMutedText(text);
+		description.setPreferredSize(new Dimension(labelWidth, title.getFont().getSize()));
+		description.setHorizontalAlignment(SwingConstants.LEFT);
+	}
+
+	private void setupDeadline(Date date) {
+		deadline = new NormalMutedText(date.toString());
+		deadline.setPreferredSize(new Dimension(labelWidth, title.getFont().getSize()));
+		deadline.setHorizontalAlignment(SwingConstants.LEFT);
+	}
+
+	private void setupDeleteButton() {
+			deleteButton = new RoundedButton("Delete");
+			deleteButton.setOriginalBackgroundColor(CustomColor.danger);
+			deleteButton.setHoverBackgroundColor(CustomColor.danger);
+			deleteButton.setForegroundHover(CustomColor.white);
+			deleteButton.setForegroundDefault(CustomColor.white);
+			deleteButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.handleDeleteTask(id);
+				removeSelf();
+			}
+		});
 	}
 
 }

@@ -31,6 +31,15 @@ public class TaskManager {
 		}
 	}
 
+	public Task find(int id) {
+		for (Task t : tasks) {
+			if (t.id == id)
+				return t;
+		}
+
+		return null;
+	}
+
 	// TODO: refactor date info to use DateValues
 	public Task createTask(String title, String description, Calendar deadline, int id) {
 		return new Task(title, description, false, deadline, id);
